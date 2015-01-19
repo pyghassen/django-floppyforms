@@ -12,6 +12,7 @@
 # serve to show the default.
 
 import datetime
+from six import text_type
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -40,8 +41,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'django-floppyforms'
-copyright = u'2010-{0}, Bruno Renié and contributors'.format(
+project = text_type('django-floppyforms')
+copyright = text_type('2010-{0}, Bruno Renié and contributors').format(
     datetime.datetime.today().year)
 
 # The version info for the project you're documenting, acts as replacement for
@@ -183,8 +184,8 @@ htmlhelp_basename = 'django-floppyformsdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'django-floppyforms.tex', u'django-floppyforms Documentation',
-   u'Bruno Renié', 'manual'),
+  ('index', 'django-floppyforms.tex', text_type('django-floppyforms Documentation'),
+   text_type('Bruno Renié'), 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -216,8 +217,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'django-floppyforms', u'django-floppyforms Documentation',
-     [u'Bruno Renié'], 1)
+    ('index', 'django-floppyforms', text_type('django-floppyforms Documentation'),
+     [text_type('Bruno Renié')], 1)
 ]
 
 # gorun

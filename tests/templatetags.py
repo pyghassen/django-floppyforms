@@ -3,6 +3,7 @@ from django.forms import TextInput
 from django.forms.formsets import formset_factory
 from django.template import Context, Template, TemplateSyntaxError
 from django.test import TestCase
+from django.utils import six
 
 import floppyforms as forms
 from floppyforms.templatetags.floppyforms import (FormConfig, ConfigFilter,
@@ -52,7 +53,7 @@ class PersonForm(forms.Form):
 
 class HardcodedWidget(forms.Widget):
     def render(self, *args, **kwargs):
-        return u'Hardcoded widget.'
+        return six.text_type('Hardcoded widget.')
 
 
 class HardcodedForm(forms.Form):

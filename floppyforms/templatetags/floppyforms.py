@@ -1,3 +1,4 @@
+from six import text_type
 from collections import defaultdict
 from contextlib import contextmanager
 
@@ -211,9 +212,12 @@ class BaseFormNode(Node):
         while bits and bits[0] not in ('using', 'with', 'only'):
             variables.append(Variable(bits.pop(0)))
         if not variables:
-            raise TemplateSyntaxError(u'%s tag expectes at least one '
-                                      'template variable as argument.' %
-                                      tagname)
+            raise TemplateSyntaxError(
+                text_type(
+                    '%s tag expectes at least one template variable as '
+                    'argument.'
+                ) % tagname
+            )
         return variables
 
     @classmethod
@@ -348,7 +352,7 @@ class ModifierBase(BaseFormNode):
                 for name, var in self.options['with'].items()])
             config.configure(self.context_config_name,
                              extra_context, filter=filter)
-        return u''
+        return text_type('')
 
     @classmethod
     def parse_bits(cls, tagname, modifier, bits, parser, tokens):
@@ -617,7 +621,7 @@ class FormFieldNode(BaseFormRenderNode):
         except VariableDoesNotExist:
             if settings.DEBUG:
                 raise
-            return u''
+            return text_type('')
 
         widget = config.retrieve('widget', bound_field=bound_field)
         extra_context = self.get_extra_context(context)
@@ -629,7 +633,7 @@ class FormFieldNode(BaseFormRenderNode):
             except VariableDoesNotExist:
                 if settings.DEBUG:
                     raise
-                return u''
+                return help_text('')
 
         if self.options['only']:
             context_instance = context.new(extra_context)

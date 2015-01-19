@@ -140,7 +140,7 @@ string representation. Here is an example how you could achieve this in your
         def __bool__(self):
             return False
 
-    TEMPLATE_STRING_IF_INVALID = InvalidVariable(u'INVALID')
+    TEMPLATE_STRING_IF_INVALID = InvalidVariable('INVALID')
 
 Getting back Django's behaviour
 -------------------------------

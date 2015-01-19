@@ -4,6 +4,7 @@ from django.forms.formsets import formset_factory
 from django.template import Context, Template
 from django.test import TestCase
 from django.utils.translation import ugettext_lazy as _
+from django.utils import six
 
 import floppyforms as forms
 
@@ -27,35 +28,35 @@ class OneFieldForm(forms.Form):
 
     def clean(self):
         if self.errors:
-            raise ValidationError(u'Please correct the errors below.')
+            raise ValidationError(six.text_type('Please correct the errors below.'))
 
 
 class ShortForm(forms.Form):
-    name = forms.CharField(label=_(u'Your first name?'))
+    name = forms.CharField(label=_(six.text_type('Your first name?')))
     age = forms.IntegerField(required=False)
     metadata = forms.CharField(required=False, widget=forms.HiddenInput)
 
 
 class RegistrationForm(forms.Form):
     honeypot = forms.CharField(required=False, widget=forms.HiddenInput)
-    firstname = forms.CharField(label=_(u'Your first name?'))
-    lastname = forms.CharField(label=_(u'Your last name:'))
+    firstname = forms.CharField(label=_(six.text_type('Your first name?')))
+    lastname = forms.CharField(label=_(six.text_type('Your last name:')))
     username = forms.CharField(max_length=30)
     password = forms.CharField(
         widget=forms.PasswordInput,
-        help_text=_(u'Make sure to use a secure password.'),
+        help_text=_(six.text_type('Make sure to use a secure password.')),
     )
-    password2 = forms.CharField(label=_(u'Retype password'), widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_(six.text_type('Retype password')), widget=forms.PasswordInput)
     age = forms.IntegerField(required=False)
 
     def clean_honeypot(self):
         if self.cleaned_data.get('honeypot'):
-            raise ValidationError(u'Haha, you trapped into the honeypot.')
+            raise ValidationError(six.text_type('Haha, you trapped into the honeypot.'))
         return self.cleaned_data['honeypot']
 
     def clean(self):
         if self.errors:
-            raise ValidationError(u'Please correct the errors below.')
+            raise ValidationError(six.text_type('Please correct the errors below.'))
 
 
 class PLayoutTests(TestCase):
@@ -442,7 +443,7 @@ class TemplateStringIfInvalidTests(TestCase):
         """)
 
     def test_non_empty(self):
-        settings.TEMPLATE_STRING_IF_INVALID = InvalidVariable(u'INVALID')
+        settings.TEMPLATE_STRING_IF_INVALID = InvalidVariable(six.text_type('INVALID'))
 
         layout = OneFieldForm().as_p()
         self.assertHTMLEqual(layout, """
