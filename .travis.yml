@@ -8,7 +8,7 @@ env:
   - TOXENV=py27-15
   - TOXENV=py27-16
   - TOXENV=py27-17
-  - TOXENV=py33-17
+  - TOXENV=py32-17
   - TOXENV=py33-15
   - TOXENV=py33-16
   - TOXENV=py33-17
