@@ -1,4 +1,3 @@
-from six import text_type
 from collections import defaultdict
 from contextlib import contextmanager
 
@@ -9,6 +8,7 @@ from django.template import (Library, Node, Variable,
 from django.template.base import token_kwargs
 from django.template.loader import get_template
 from django.utils.functional import empty
+from django.utils import six
 
 register = Library()
 
@@ -213,7 +213,7 @@ class BaseFormNode(Node):
             variables.append(Variable(bits.pop(0)))
         if not variables:
             raise TemplateSyntaxError(
-                text_type(
+                six.text_type(
                     '%s tag expectes at least one template variable as '
                     'argument.'
                 ) % tagname
@@ -352,7 +352,7 @@ class ModifierBase(BaseFormNode):
                 for name, var in self.options['with'].items()])
             config.configure(self.context_config_name,
                              extra_context, filter=filter)
-        return text_type('')
+        return six.text_type('')
 
     @classmethod
     def parse_bits(cls, tagname, modifier, bits, parser, tokens):
@@ -621,7 +621,7 @@ class FormFieldNode(BaseFormRenderNode):
         except VariableDoesNotExist:
             if settings.DEBUG:
                 raise
-            return text_type('')
+            return six.text_type('')
 
         widget = config.retrieve('widget', bound_field=bound_field)
         extra_context = self.get_extra_context(context)
