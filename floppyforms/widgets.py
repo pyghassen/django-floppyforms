@@ -4,7 +4,6 @@ import datetime
 
 import django
 from django import forms
-from six import text_type
 try:
     from django.forms.utils import to_current_timezone
 except ImportError:
@@ -488,25 +487,30 @@ class Select(Input):
 
 class NullBooleanSelect(Select):
     def __init__(self, attrs=None):
-        choices = ((text_type('1'), _('Unknown')),
-                   (text_type('2'), _('Yes')),
-                   (text_type('3'), _('No')))
+        choices = ((six.text_type('1'), _('Unknown')),
+                   (six.text_type('2'), _('Yes')),
+                   (six.text_type('3'), _('No')))
         super(NullBooleanSelect, self).__init__(attrs, choices)
 
     def _format_value(self, value):
         value = value[0]
         try:
-            value = {True: text_type('2'), False: text_type('3'), text_type('2'): text_type('2'), text_type('3'): text_type('3')}[value]
+            value = {
+                True: six.text_type('2'),
+                False: six.text_type('3'),
+                six.text_type('2'): six.text_type('2'),
+                six.text_type('3'): six.text_type('3')
+            }[value]
         except KeyError:
-            value = text_type('1')
+            value = six.text_type('1')
         return value
 
     def value_from_datadict(self, data, files, name):
         value = data.get(name, None)
-        return {text_type('2'): True,
+        return {six.text_type('2'): True,
                 True: True,
                 'True': True,
-                text_type('3'): False,
+                six.text_type('3'): False,
                 'False': False,
                 False: False}.get(value, None)
 
