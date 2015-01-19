@@ -15,7 +15,6 @@ from .models import Registration
 class RegistrationForm(forms.Form):
     honeypot = forms.CharField(required=False, widget=forms.HiddenInput)
     firstname = forms.CharField(label=_(six.text_type('Your first name?')))
-    lastname = forms.CharField(label=_(six.text_type'Your last name:')))
     username = forms.CharField(max_length=30)
     password = forms.CharField(
         widget=forms.PasswordInput,
