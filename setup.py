@@ -4,7 +4,8 @@ import re
 from os import path
 from distutils.core import setup
 from setuptools import find_packages
-from six import text_type
+
+from django.utils import six
 
 
 def read(*parts):
@@ -24,14 +25,14 @@ def find_version(*file_paths):
 setup(
     name='django-floppyforms',
     version=find_version('floppyforms', '__init__.py'),
-    author=text_type('Bruno Renié'),
+    author=six.text_type('Bruno Renié'),
     author_email='bruno@renie.fr',
     packages=find_packages(exclude=["tests.*", "tests"]),
     include_package_data=True,
     url='https://github.com/gregmuellegger/django-floppyforms',
     license='BSD licence, see LICENSE file',
     description='Full control of form rendering in the templates',
-    long_description=text_type('\n\n').join((
+    long_description=six.text_type('\n\n').join((
         read('README.rst'),
         read('CHANGES.rst'))),
     classifiers=[
